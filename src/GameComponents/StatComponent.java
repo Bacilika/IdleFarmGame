@@ -4,13 +4,11 @@ import MainGame.Player;
 import Tools.Tool;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 
 public class StatComponent extends JComponent {
-    private Player player;
+    private final Player player;
 
     public static EnumMap<Tool, ImageIcon> toolTextures = new EnumMap<>(Tool.class);
 
@@ -22,14 +20,15 @@ public class StatComponent extends JComponent {
         addStats();
     }
     private void addStats() {
-        add(new JLabel("Money: " + player.getMoney()));
+        //noinspection preview
+        add(new JLabel(STR."Money: \{player.getMoney()}"));
         for(Tool tool: Tool.values()) {
             toolTextures.put(tool, new ImageIcon(tool.getPath()));
             JButton button = new JButton(new ImageIcon(tool.getPath()));
             button.setMargin(new Insets(0, 0, 0, 0));
             button.setBorder(BorderFactory.createLineBorder(new Color(100, 55, 55), 2));
             button.setBackground(Color.WHITE);
-            button.addActionListener(e -> player.setCurrentTool(tool));
+            button.addActionListener(_ -> player.setCurrentTool(tool));
             add(button);
         }
 

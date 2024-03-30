@@ -1,7 +1,6 @@
 package BlockTypes.CropTypes;
 
 import BlockTypes.Crop;
-import BlockTypes.FarmBlock;
 import BlockTypes.Soil;
 
 public class Carrot extends Crop {

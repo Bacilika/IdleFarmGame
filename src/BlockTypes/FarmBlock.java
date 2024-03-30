@@ -5,16 +5,13 @@ import GameComponents.FarmComponent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public abstract class FarmBlock implements Block {
     protected int x;
     protected int y;
     public final static int BLOCK_SIZE = 50;
     protected List<BufferedImage> blockTextures;
-    protected List<BufferedImage> alterantiveBlockTextures;
     protected BlockType name;
     protected boolean alternative = false;
 
@@ -36,11 +33,6 @@ public abstract class FarmBlock implements Block {
     public void water() {
         // TODO Auto-generated method stub
     }
-    public void hoe() {
-
-    }
-
-
 
     public int getX() {
         return x;

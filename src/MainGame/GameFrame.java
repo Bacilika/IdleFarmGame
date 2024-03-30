@@ -1,8 +1,5 @@
 package MainGame;
 
-import BlockTypes.Block;
-import BlockTypes.CropTypes.BlockType;
-import BlockTypes.FarmBlock;
 import GameComponents.FarmComponent;
 import GameComponents.Shop;
 import GameComponents.StatComponent;
@@ -47,7 +44,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.pack();
-        Timer timer = new Timer(10, e -> run());
+        Timer timer = new Timer(10, _ -> run());
         timer.start();
         farmArea.setOffset(61);
     }

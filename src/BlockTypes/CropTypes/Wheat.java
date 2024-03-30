@@ -1,11 +1,7 @@
 package BlockTypes.CropTypes;
 
 import BlockTypes.Crop;
-import BlockTypes.FarmBlock;
 import BlockTypes.Soil;
-
-import java.awt.*;
-import java.util.List;
 
 public class Wheat extends Crop {
 
