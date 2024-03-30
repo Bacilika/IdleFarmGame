@@ -22,9 +22,9 @@ public class FarmComponent extends JComponent  {
     private final static String BASE_PATH = "resources/Blocks/";
     public Point mouseLocation = null;
 
-    public static EnumMap<BlockType,List<BufferedImage>> blockTextures = loadTextures(BASE_PATH);
-    public static EnumMap<Tool, Cursor> cursorTool = new EnumMap<>(Tool.class);
-    public static HashMap<Integer, BufferedImage> grassTrims = getGrassTrims();
+    public static final EnumMap<BlockType,List<BufferedImage>> BLOCK_TEXTURES = loadTextures(BASE_PATH);
+    public static final EnumMap<Tool, Cursor> CURSOR_TOOL = new EnumMap<>(Tool.class);
+    public static final HashMap<Integer, BufferedImage> GRASS_TRIMS = getGrassTrims();
 
     public FarmComponent(FarmArea farmArea){
         this.farmArea = farmArea;
@@ -32,11 +32,11 @@ public class FarmComponent extends JComponent  {
         for(Tool tool: Tool.values()) {
             if(tool == Tool.NONE) continue;
             try {
-                cursorTool.put(tool, Toolkit.getDefaultToolkit().createCustomCursor(
+                CURSOR_TOOL.put(tool, Toolkit.getDefaultToolkit().createCustomCursor(
                         ImageIO.read(new File(tool.getPath())),
                         new Point(0, 0), tool.name()));
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Could not load tool images");
             }
         }
     }
@@ -47,6 +47,7 @@ public class FarmComponent extends JComponent  {
             List<BufferedImage> images = new ArrayList<>();
             for(int i = 1; i < 20; i++){
                 try {
+                    //noinspection preview
                     images.add(ImageIO.read(new File(path + STR."\{type.name()}/\{type.name()}\{i}.png")));
                 }
                 catch (Exception e){
@@ -63,6 +64,7 @@ public class FarmComponent extends JComponent  {
         HashMap<Integer, BufferedImage> grassTrims = new HashMap<>();
         for(int i = 1; i < 8; i++){
             try {
+                //noinspection preview
                 grassTrims.put(i, ImageIO.read(new File(STR."\{BASE_PATH}grasstrim/grasstrim\{i}.png")));
             }
             catch (Exception e){

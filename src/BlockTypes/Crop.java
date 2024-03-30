@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 public abstract class Crop extends FarmBlock {
-    protected int growthTime;
-    protected int waterNeeded;
+    protected final int growthTime;
+    protected final int waterNeeded;
     protected int timeAlive = 0;
-    protected List<BufferedImage> growStages;
+    protected final List<BufferedImage> growStages;
     protected int timesWatered = 0;
     protected boolean needsWater = false;
     protected boolean isHarvested = false;

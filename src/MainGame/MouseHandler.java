@@ -72,7 +72,7 @@ public class MouseHandler{
             farmArea.getHeldBlock().setY(p.y);
         }
     }
-    public void mouseReleased(MouseEvent e){
+    public void mouseReleased( ){
         if (dragging){
             dragging = false;
             farmArea.setHeldBlock(null);

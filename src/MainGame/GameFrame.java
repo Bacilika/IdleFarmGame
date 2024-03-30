@@ -65,7 +65,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseHandler.mouseReleased(e);
+        mouseHandler.mouseReleased();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
                 farmComponent.mouseLocation = farmArea.pixelToBlock(e.getX(), e.getY());
             }
             if(player.getCurrentTool() != null){
-                setCursor(FarmComponent.cursorTool.get(player.getCurrentTool()));
+                setCursor(FarmComponent.CURSOR_TOOL.get(player.getCurrentTool()));
             }
             else {
                 setCursor(Cursor.getDefaultCursor());

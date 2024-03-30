@@ -11,19 +11,19 @@ public abstract class FarmBlock implements Block {
     protected int x;
     protected int y;
     public final static int BLOCK_SIZE = 50;
-    protected List<BufferedImage> blockTextures;
-    protected BlockType name;
+    protected final List<BufferedImage> blockTextures;
+    protected final BlockType name;
     protected boolean alternative = false;
 
-    protected int price;
-    protected int sellPrice;
+    protected final int price;
+    protected final int sellPrice;
     protected int index = 1;
 
 
     public FarmBlock( int x, int y,BlockType name, int price, int sellPrice) {
         this.x = x;
         this.y = y;
-        this.blockTextures = FarmComponent.blockTextures.get(name);
+        this.blockTextures = FarmComponent.BLOCK_TEXTURES.get(name);
         this.name = name;
         this.price = price;
         this.sellPrice = sellPrice;
