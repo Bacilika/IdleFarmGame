@@ -2,26 +2,21 @@ package GameComponents;
 
 import BlockTypes.Block;
 import BlockTypes.Crop;
-import BlockTypes.CropTypes.BlockType;
 import BlockTypes.CropTypes.Carrot;
 import BlockTypes.CropTypes.Wheat;
 import BlockTypes.Soil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 
 public class Shop extends JComponent {
     private final List<Block> shopItems;
-    private final EnumMap<BlockType,List<BufferedImage>> blocks;
 
     private Block activeBlock = null;
     public Shop() {
         setLayout(new FlowLayout());
-        blocks = FarmComponent.getBlockTextures();
 
         shopItems = new ArrayList<>();
 

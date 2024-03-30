@@ -95,15 +95,11 @@ public class FarmComponent extends JComponent  {
 
 
 
-
         if(mouseLocation != null) {
             g.setColor(Color.RED);
             g.drawRect(mouseLocation.x*blockSize, mouseLocation.y*blockSize,
                     blockSize, blockSize);
         }
-    }
-    public static EnumMap<BlockType, List<BufferedImage>> getBlockTextures() {
-        return blockTextures;
     }
 
 }
