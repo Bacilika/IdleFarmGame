@@ -111,25 +111,40 @@ public class FarmArea {
     }
 
     public void updateSoilTextures() {
-        int height = farmArea.size();
-        int width = farmArea.getFirst().size();
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (getFarmBlock(y, x).getName() == BlockType.SOIL) {
-                    FarmBlock soil = (FarmBlock) getFarmBlock(y, x);
-                    int[][] surroundingBlocks = new int[3][3];
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 3; j++) {
-                            if (y + i - 1 >= 0 && y + i - 1 < height &&
-                                    x + j - 1 >= 0 && x + j - 1 < width) {
-                                surroundingBlocks[i][j] = getFarmBlock(y + i - 1, x + j - 1).getName()
-                                        == BlockType.SOIL ? 1 : 0;
-                            } else {
-                                surroundingBlocks[i][j] = 0;
-                            }
-                        }
+        for (int y = 0; y < farmArea.size(); y++) {
+            for (int x = 0; x < farmArea.get(y).size(); x++) {
+                if (farmArea.get(y).get(x).getName() == BlockType.SOIL) {
+                    Soil soil = (Soil) farmArea.get(y).get(x);
+                    soil.fillTrims();
+                    boolean up = false, down = false, left = false, right = false;
+                    if(y > 0 && farmArea.get(y-1).get(x).getName() == BlockType.SOIL){
+                        soil.removeTrim(2);
+                        up = true;
                     }
-                    soil.setIndex(surroundingBlocks);
+                    if(y < farmArea.size()-1 && farmArea.get(y+1).get(x).getName() == BlockType.SOIL){
+                        soil.removeTrim(6);
+                        down = true;
+                    }
+                    if(x > 0 && farmArea.get(y).get(x-1).getName() == BlockType.SOIL){
+                        soil.removeTrim(8);
+                        left = true;
+                    }
+                    if(x < farmArea.get(y).size() - 1 && farmArea.get(y).get(x + 1).getName() == BlockType.SOIL) {
+                        soil.removeTrim(4);
+                        right = true;
+                    }
+                    if(up && left && farmArea.get(y-1).get(x-1).getName() == BlockType.SOIL){
+                        soil.removeTrim(1);
+                    }
+                    if(up && right && farmArea.get(y-1).get(x+1).getName() == BlockType.SOIL){
+                        soil.removeTrim(3);
+                    }
+                    if(down && right && farmArea.get(y+1).get(x+1).getName() == BlockType.SOIL){
+                        soil.removeTrim(5);
+                    }
+                    if(down && left && farmArea.get(y+1).get(x-1).getName() == BlockType.SOIL){
+                        soil.removeTrim(7);
+                    }
                 }
             }
         }

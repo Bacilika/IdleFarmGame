@@ -62,7 +62,7 @@ public class FarmComponent extends JComponent  {
 
     public static HashMap<Integer, BufferedImage> getGrassTrims() {
         HashMap<Integer, BufferedImage> grassTrims = new HashMap<>();
-        for(int i = 1; i < 8; i++){
+        for(int i = 1; i <= 8; i++){
             try {
                 //noinspection preview
                 grassTrims.put(i, ImageIO.read(new File(STR."\{BASE_PATH}grasstrim/grasstrim\{i}.png")));
@@ -102,6 +102,9 @@ public class FarmComponent extends JComponent  {
             g.drawRect(mouseLocation.x*blockSize, mouseLocation.y*blockSize,
                     blockSize, blockSize);
         }
+    }
+    public static BufferedImage getTrim(int i){
+        return GRASS_TRIMS.get(i);
     }
 
 }
