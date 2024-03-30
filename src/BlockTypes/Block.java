@@ -14,7 +14,7 @@ public interface Block {
 
     void draw(Graphics2D g2d);
 
-    void onCreate(int x, int y);
+    void onCreate();
 
     void performAction();
 

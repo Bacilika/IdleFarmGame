@@ -17,6 +17,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
     private final StatComponent statComponent;
     private final Player player;
     private final MouseHandler mouseHandler;
+    private MouseEvent currentMouseEvent;
 
     public GameFrame() {
         this.setTitle("Idle farm");
@@ -52,6 +53,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
             farmArea.tick();
             statComponent.updateStats();
             farmArea.setOffset(61);
+            mouseHandler.onLeftMouseDown(currentMouseEvent);
             repaint();
     }
 
@@ -65,7 +67,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseHandler.mouseReleased();
+        mouseHandler.mouseReleased(e);
     }
 
     @Override
@@ -79,12 +81,13 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        currentMouseEvent = e;
         mouseHandler.mouseDragged(e);
-
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        currentMouseEvent = e;
         if(farmComponent.contains(e.getPoint())){
             if(shop.getActiveBlock() != null) {
                 farmComponent.mouseLocation = farmArea.pixelToBlock(e.getX(), e.getY());
@@ -96,8 +99,5 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
                 setCursor(Cursor.getDefaultCursor());
             }
         }
-
     }
-
-
 }

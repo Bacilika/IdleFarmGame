@@ -13,8 +13,6 @@ public abstract class FarmBlock implements Block {
     public final static int BLOCK_SIZE = 50;
     protected final List<BufferedImage> blockTextures;
     protected final BlockType name;
-    protected boolean alternative = false;
-
     protected final int price;
     protected final int sellPrice;
     protected int index = 1;
@@ -68,7 +66,8 @@ public abstract class FarmBlock implements Block {
         return sellPrice;
     }
 
-    public void onCreate(int x, int y) {
+    public void onCreate() {
+
         // TODO Auto-generated method stub
     }
     public void performAction() {
@@ -78,44 +77,6 @@ public abstract class FarmBlock implements Block {
     @Override
     public boolean onHarvest() {
         return false;
-    }
-
-    public void setIndex(int[][] surrounding) {
-        boolean top = surrounding[0][1] == 1;
-        boolean down = surrounding[2][1] == 1;
-        boolean left = surrounding[1][0] == 1;
-        boolean right = surrounding[1][2] == 1;
-
-        if(!top && !down && !left && !right){ //single
-            index = 1;
-        }
-        else if(!top && !down && !left){ //right
-            index = 2;
-        }
-        else if(!top && !down && !right){ //left
-            index = 4;
-        }
-        else if(!top && down && !left && !right){ //down
-            index = 3;
-        }
-        else if(top && !down && !left && !right){ //top
-            index = 5;
-        }
-        else if(top && !down && !left){ //top
-            index = 6;
-        }
-        else if(!top && down && !left){ //top
-            index = 7;
-        }
-        else if(!top && down && !right){ //top
-            index = 8;
-        }
-        else if(top && !down && !right){ //top
-            index = 9;
-        }
-        else{
-            index = 10;
-        }
     }
 
 }

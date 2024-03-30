@@ -17,6 +17,7 @@ public class MouseHandler{
     private final Shop shop;
     private final FarmComponent farmComponent;
     private boolean dragging = false;
+    private boolean leftMouseDown = false;
 
     public MouseHandler(FarmArea farmArea, Shop shop, FarmComponent farmComponent){
         this.farmArea = farmArea;
@@ -26,33 +27,16 @@ public class MouseHandler{
     }
 
     public void mousePressed(MouseEvent e){
-        Point p = farmArea.pixelToBlock(e.getX(), e.getY());
 
         if (e.getButton() == MouseEvent.BUTTON3) {
             shop.setActiveBlock(null);
             farmComponent.mouseLocation = null;
             player.setCurrentTool(null);
 
-        } else if (e.getButton() == MouseEvent.BUTTON1) {
-            if (farmComponent.contains(e.getPoint())) {
-                Block farmBlock = farmArea.getVisibleBlock(p.y, p.x);
-
-                if(!tryToPlaceBlock(p, farmBlock)){
-                    if (player.getCurrentTool() != null) {
-
-                        switch (player.getCurrentTool()) {
-                            case WATERING_CAN -> farmBlock.water();
-                            case HOE -> farmArea.hoe(p);
-                        }
-                    }
-                    else{
-                        farmArea.harvestCrop(p);
-                    }
-                }
-            }
         }
-        farmComponent.repaint();
-
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            leftMouseDown = true;
+        }
     }
     public void mouseDragged(MouseEvent e){
 
@@ -72,7 +56,10 @@ public class MouseHandler{
             farmArea.getHeldBlock().setY(p.y);
         }
     }
-    public void mouseReleased( ){
+    public void mouseReleased(MouseEvent e){
+        if (e.getButton() == MouseEvent.BUTTON1){
+            leftMouseDown = false;
+        }
         if (dragging){
             dragging = false;
             farmArea.setHeldBlock(null);
@@ -92,16 +79,37 @@ public class MouseHandler{
             Class<? extends FarmBlock> cropType = block.getClass();
             try {
                 Crop newBlock = (Crop) cropType.getConstructor(int.class, int.class, Soil.class).newInstance(p.x, p.y, null);
-                newBlock.onCreate(p.x, p.y);
                 newBlock.setSoil(farmArea.getFarmBlock(p.y, p.x));
+                newBlock.onCreate();
                 farmArea.trackBlock(newBlock);
                 return true;
             } catch (Exception ignored) {
-
+                throw new RuntimeException("Invalid block type");
             }
         }
 
         return false;
     }
+    public void onLeftMouseDown(MouseEvent e){
+        if (!leftMouseDown) {
+            return;
+        }
+        Point p = farmArea.pixelToBlock(e.getX(), e.getY());
+        if (farmComponent.contains(e.getPoint())) {
+            Block farmBlock = farmArea.getVisibleBlock(p.y, p.x);
 
+            if(!tryToPlaceBlock(p, farmBlock)){
+                if (player.getCurrentTool() != null) {
+                    switch (player.getCurrentTool()) {
+                        case WATERING_CAN -> farmBlock.water();
+                        case HOE -> farmArea.hoe(p);
+                    }
+                }
+                else{
+                    farmArea.harvestCrop(p);
+                }
+            }
+        }
+        farmComponent.repaint();
+    }
 }

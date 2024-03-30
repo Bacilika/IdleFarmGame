@@ -39,27 +39,44 @@ public abstract class Crop extends FarmBlock {
     @Override
     public void performAction() {
         double percentageLife = (double) timeAlive / growthTime;
-        if(percentageLife == 0 && soil.index == 1) {timesWatered++;}
         needsWater = percentageLife >= (double) timesWatered / waterNeeded;
 
         if (!needsWater) {
             timeAlive++;
         }
         else{
-            soil.setAlternative(false);
+            soil.setWatered(false);
         }
     }
+
     public void water() {
         if (needsWater) {
             soil.water();
             timesWatered++;
+            needsWater = false;
         }
     }
+
     public boolean onHarvest() {
+        double percentageLife = (double) timeAlive / growthTime;
+        if (percentageLife < 1) {
+            return false;
+        }
         isHarvested = true;
         return true;
     }
+
     public void setSoil(Block soil){
         this.soil = (Soil) soil;
+    }
+
+    public void onCreate() {
+        isHarvested = false;
+        if(soil.isWatered()) {
+            timesWatered++;}
+    }
+
+    public void setHarvested(boolean harvested){
+        isHarvested = harvested;
     }
 }

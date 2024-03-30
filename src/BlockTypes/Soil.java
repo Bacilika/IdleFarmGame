@@ -8,21 +8,22 @@ import java.util.HashSet;
 
 public class Soil extends FarmBlock{
     private final HashSet<Integer> trims;
+    private boolean watered = false;
     public Soil(int x, int y) {
         super(x, y, BlockType.SOIL, 0, 0);
         trims = new HashSet<>();
     }
     public void water() {
-        alternative = true;
+        watered = true;
     }
-    public void setAlternative(boolean b) {
-        alternative = b;
+    public void setWatered(boolean b) {
+        watered = b;
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
-        if(alternative) {
+        if(watered) {
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
             g2d.fillRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
@@ -40,4 +41,7 @@ public class Soil extends FarmBlock{
         }
     }
 
+    public boolean isWatered() {
+        return watered;
+    }
 }
