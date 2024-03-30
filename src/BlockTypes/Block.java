@@ -12,7 +12,7 @@ public interface Block {
 
     BlockType getName();
 
-    void draw(Graphics g2d);
+    void draw(Graphics2D g2d);
 
     void onCreate(int x, int y);
 

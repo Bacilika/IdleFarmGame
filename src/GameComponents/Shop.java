@@ -1,10 +1,10 @@
 package GameComponents;
 
 import BlockTypes.Block;
+import BlockTypes.Crop;
 import BlockTypes.CropTypes.BlockType;
 import BlockTypes.CropTypes.Carrot;
 import BlockTypes.CropTypes.Wheat;
-import BlockTypes.FarmBlock;
 import BlockTypes.Soil;
 
 import javax.swing.*;
@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 
 public class Shop extends JComponent {
@@ -37,7 +36,10 @@ public class Shop extends JComponent {
         shopItems.add(new Wheat(0, 0, _soil));
         shopItems.add(new Carrot(0, 0, _soil));
         for(Block block: shopItems) {
-            JButton button = new JButton( new ImageIcon(blocks.get(block.getName()).getLast()));
+            if (block instanceof Crop) {
+                block.onHarvest();
+            }
+            JButton button = new JButton(new ImageIcon(block.getTexture()));
             button.setText(STR."\{block.getSellPrice()} coins");
             button.setMargin(new Insets(0, 0, 0, 0));
             button.setBorder(null);

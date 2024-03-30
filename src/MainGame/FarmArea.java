@@ -21,6 +21,7 @@ public class FarmArea {
         farmArea = new ArrayList<>();
         farmBlocks = new ArrayList<>();
         player = new Player();
+
         for (int i = 0; i < height; i++) {
             List<Block> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {

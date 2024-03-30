@@ -36,7 +36,6 @@ public abstract class Crop extends FarmBlock {
         return growStages.get(Math.max(0,(int) Math.floor(percentageLife * growStages.size())-1));
     }
 
-
     @Override
     public void performAction() {
         double percentageLife = (double) timeAlive / growthTime;

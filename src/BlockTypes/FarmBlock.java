@@ -27,7 +27,6 @@ public abstract class FarmBlock implements Block {
         this.x = x;
         this.y = y;
         this.blockTextures = FarmComponent.blockTextures.get(name);
-        this.alterantiveBlockTextures = FarmComponent.alternativeBlockTextures.get(name);
         this.name = name;
         this.price = price;
         this.sellPrice = sellPrice;
@@ -59,14 +58,11 @@ public abstract class FarmBlock implements Block {
         this.y = y;
     }
 
-    public void draw(Graphics g2d) {
+    public void draw(Graphics2D g2d) {
 
         g2d.drawImage(getTexture(), x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, null);
     }
     public BufferedImage getTexture() {
-        if(alternative) {
-            return alterantiveBlockTextures.get(index-1);
-        }
         return blockTextures.get(index-1);
     }
     public BlockType getName() {

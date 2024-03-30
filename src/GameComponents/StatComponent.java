@@ -24,8 +24,8 @@ public class StatComponent extends JComponent {
     private void addStats() {
         add(new JLabel("Money: " + player.getMoney()));
         for(Tool tool: Tool.values()) {
-            toolTextures.put(tool, new ImageIcon("resources/Blocks/"+tool.name()+".png"));
-            JButton button = new JButton(new ImageIcon("resources/Blocks/"+tool.name()+".png"));
+            toolTextures.put(tool, new ImageIcon(tool.getPath()));
+            JButton button = new JButton(new ImageIcon(tool.getPath()));
             button.setMargin(new Insets(0, 0, 0, 0));
             button.setBorder(BorderFactory.createLineBorder(new Color(100, 55, 55), 2));
             button.setBackground(Color.WHITE);
